@@ -3,100 +3,118 @@
 #define ALL 255
 #define NO_ONE 0
 
-int angle0 = 5;
-int angle = 53;
-int buttonPin = 7;
 int button_delay = 300;
-
-/* commandes des leds par 74HC595 */
-int latchPin = 11;
-int clockPin = 9;
-int dataPin = 12;
-byte leds = 0;
-/* Numeros des leds */
-int led1_1 = 128;
-int led1_2 = 64;
-int led2_1 = 32;
-int led2_2 = 16;
-int led3_1 = 8;
-int led3_2 = 4;
-int led4_1 = 2;
-int led4_2 = 1;
-
-/* commandes des servos */
-int servo1 = 8;
-
-void turnOnLight(int light)
-{
-   digitalWrite(latchPin, LOW);
-   shiftOut(dataPin, clockPin, LSBFIRST, light);
-   digitalWrite(latchPin, HIGH);
-}
 
 class railSwitch: public Servo {
   public:
     // state : 0 ou 1, initial == 0
     byte state = 0;
     int current_state;
+    unsigned char angle0;
+    unsigned char angle;
+    unsigned char command;
+    unsigned char button;
 
     int init_state() {
-      this->write(angle0);
+      this->write(this->angle0);
       this->state = 0;
     }
     int other_state() {
-      this->write(angle);
+      this->write(this->angle);
       this->state = 1;
     }
     int change_state() {
       current_state = this->state;
       if (current_state == 0) {
-        this->write(angle);
+        this->write(this->angle);
         this->state = 1;
-        turnOnLight(led1_2);
         Serial.print("state = 1\n");
       }
       if (current_state == 1) {
         this->init_state();
         this->state = 0;
-        turnOnLight(led1_1);
         Serial.print("state = 0\n");
       }
     }
 };
 
-railSwitch aiguil1 ; 
+/* Nombre d'aiguillages */
+const char NBSWITCH = 5;
+
+railSwitch aiguil1;
+/* les aiguillages */
+railSwitch aiguils[NBSWITCH];
+
+/* les angles (initial et autre) de chaque servo */
+unsigned char angles0[NBSWITCH] = {5, 5, 5, 5, 0};
+unsigned char angles[NBSWITCH] = {130, 53, 53, 53, 180};
+
+/* les pins des commandes des servo */
+unsigned char commands[NBSWITCH] = {9, 10, 11, 12, 13};
+unsigned char buttons[NBSWITCH] = {8, 7, 6, 5, 4};
+
+unsigned char i;
 
 void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
-  aiguil1.attach(servo1);
-  aiguil1.init_state();
   Serial.begin(9600);
-
-  /* initialisation du 74HC595 */
-  pinMode(latchPin, OUTPUT);
-  pinMode(dataPin, OUTPUT);
-  pinMode(clockPin, OUTPUT);
-
-  turnOnLight(NO_ONE);
+  for (i = 0; i < NBSWITCH; i++){
+    Serial.print(i);
+    Serial.print("\n");
+    pinMode(buttons[i], INPUT_PULLUP);
+    aiguils[i].angle0 = angles0[i];
+    aiguils[i].angle = angles[i];
+    aiguils[i].command = commands[i];
+    aiguils[i].button = buttons[i];
+    aiguils[i].attach(aiguils[i].command);
+    aiguils[i].init_state();
+  }
 }
 
 void loop() {
-  if (digitalRead(buttonPin) == LOW) {
-    aiguil1.change_state();
-    Serial.print("buttonPin : ");
-    Serial.println(digitalRead(buttonPin), 1);
+  
+  if (digitalRead(aiguils[0].button) == LOW){
+    aiguils[0].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[0].button, DEC);
     delay(button_delay);
   }
+  
+  if (digitalRead(aiguils[1].button) == LOW){
+    aiguils[1].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[1].button, DEC);
+    delay(button_delay);
+  }
+  
+  if (digitalRead(aiguils[2].button) == LOW){
+    aiguils[2].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[2].button, DEC);
+    delay(button_delay);
+  }
+  
+  
+  if (digitalRead(aiguils[3].button) == LOW){
+    aiguils[3].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[3].button, DEC);
+    delay(button_delay);
+  }
+  
+  if (digitalRead(aiguils[4].button) == LOW){
+    aiguils[4].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[4].button, DEC);
+    delay(button_delay);
+  }
+  
   /*
-  if ((digitalRead(buttonPin) == LOW) && (aiguil1.state == 0)) {
-      aiguil1.other_state();
-      Serial.print("other_state\n");
+  for (i = 0; i < NBSWITCH; i++){
+    if (digitalRead(aiguils[i].button == LOW)){
+      aiguils[i].change_state();
+      Serial.print("boutton pushed !");
       delay(button_delay);
     }
-    if ((digitalRead(buttonPin) == LOW) && (aiguil1.state == 1)) {
-      aiguil1.init_state();
-      Serial.print("initial_state\n");
-      delay(button_delay);
-    }
-    */
+  }
+  */
 }
