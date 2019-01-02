@@ -46,7 +46,7 @@ railSwitch aiguil1;
 railSwitch aiguils[NBSWITCH];
 
 /* les angles (initial et autre) de chaque servo */
-unsigned char angles0[NBSWITCH] = {5, 5, 5, 5, 0};
+unsigned char angles0[NBSWITCH] = {5, 5, 5, 5, 5};
 unsigned char angles[NBSWITCH] = {130, 53, 53, 53, 180};
 
 /* les pins des commandes des servo */
@@ -68,10 +68,11 @@ void setup() {
     aiguils[i].attach(aiguils[i].command);
     aiguils[i].init_state();
   }
+  i = 0;
 }
 
 void loop() {
-  
+  /*
   if (digitalRead(aiguils[0].button) == LOW){
     aiguils[0].change_state();
     Serial.print("boutton : ");
@@ -93,7 +94,6 @@ void loop() {
     delay(button_delay);
   }
   
-  
   if (digitalRead(aiguils[3].button) == LOW){
     aiguils[3].change_state();
     Serial.print("boutton : ");
@@ -107,14 +107,17 @@ void loop() {
     Serial.println(aiguils[4].button, DEC);
     delay(button_delay);
   }
-  
-  /*
-  for (i = 0; i < NBSWITCH; i++){
-    if (digitalRead(aiguils[i].button == LOW)){
-      aiguils[i].change_state();
-      Serial.print("boutton pushed !");
-      delay(button_delay);
-    }
-  }
   */
+  if (i >= NBSWITCH) {
+    i = 0;
+  }
+  if (digitalRead(int(aiguils[i].button)) == LOW){
+    aiguils[i].change_state();
+    Serial.print("boutton : ");
+    Serial.println(aiguils[i].button, DEC);
+    delay(button_delay);
+  }
+  i++;
+  delay(20);
+  
 }
