@@ -1,0 +1,16 @@
+
+https://duckduckgo.com/?q=arduino+GY-271M&atb=v25__&ia=web
+
+idem que HMC5883L
+
+http://www.robotpark.com/image/data/PRO/91457/GY_271_ELECTRONIC_COMPASS.pdf
+
+https://github.com/ControlEverythingCommunity/MAG3110
+
+Voir pojet de pilote et les commentaires : https://create.arduino.cc/projecthub/autohelm/tiller-pilot-for-yacht-0498bd
+
+http://henrysbench.capnfatz.com/henrys-bench/arduino-sensors-and-input/arduino-gy-273-hmc5883l-magnetometer-compass-tutorial/
+https://www.instructables.com/id/MPU6050-Arduino-6-Axis-Accelerometer-Gyro-GY-521-B/
+
+
+
