@@ -1,3 +1,9 @@
+Explications/discussions en français :
+https://www.generationrobots.com/fr/401706-module-boussole-3-axes-hmc5883l.html
+https://forum.arduino.cc/index.php?topic=297771.0
+http://tiptopboards.free.fr/arduino_forum/viewtopic.php?f=3&t=70
+https://www.tubefr.com/arduino-boussole-numerique-hmc5883l-2-modes-d-affichage_2.html
+
 
 https://duckduckgo.com/?q=arduino+GY-271M&atb=v25__&ia=web
 
@@ -12,5 +18,30 @@ Voir pojet de pilote et les commentaires : https://create.arduino.cc/projecthub/
 http://henrysbench.capnfatz.com/henrys-bench/arduino-sensors-and-input/arduino-gy-273-hmc5883l-magnetometer-compass-tutorial/
 https://www.instructables.com/id/MPU6050-Arduino-6-Axis-Accelerometer-Gyro-GY-521-B/
 
+
+https://www.youtube.com/watch?v=VVlwIRTiHTQ
+
+https://www.brainy-bits.com/tutorials/ : chercher par momt clé (i.e. compass)
+++++++++++++++++++++++
+https://www.brainy-bits.com/using-the-hmc5883l/
+https://www.brainy-bits.com/find-your-way-using-the-hmc5883l/
+https://github.com/jarzebski/Arduino-HMC5883L
+++++++++++++++++++++++
+
+
+
+Autres exemples de compas :
+https://www.youtube.com/watch?v=zo_ZA-SmXtg&feature=emb_rel_pause
+https://www.youtube.com/results?search_query=arduino+compass
+    https://www.youtube.com/watch?v=i7GaVqMSzMA
+https://www.youtube.com/watch?v=dzjRk3qdCzk
+https://www.youtube.com/watch?v=zo_ZA-SmXtg&feature=emb_rel_pause
+https://www.youtube.com/watch?v=defHGfeDC2o
+
+
+Il semble qu'il y ai 2 bibliothèques
+https://github.com/adafruit/Adafruit_HMC5883_Unified
+https://github.com/Seeed-Studio/Grove_3Axis_Digital_Compass_HMC5883L
+=> premier test : Adafruit_HMC5883_Unified
 
 

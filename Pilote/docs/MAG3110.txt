@@ -1,0 +1,24 @@
+
+Librairie : I2C-Sensor-Lib à https://github.com/orgua/iLib
+
+Voir essai à https://github.com/orgua/iLib/blob/master/examples/i2c_MAG3110/i2c_MAG3110.ino
+
+une doc trouvee : http://arduinolearning.com/code/arduino-mag3110-magnetometer-example.php
+
+recherche google : https://duckduckgo.com/?q=arduino+MAG3110&atb=v25__&ia=videos&iai=Sgg9qA6O5GI
+plein de choses...
+
+https://www.youtube.com/watch?v=k6ccH8QYGK8
+
+quelques indications intéressantes ici :
+http://www.bajdi.com/mag3110-magnetometer-and-arduino/
+avec l'usage d'un accéléromètre pour la calibration...
+
+un autre librairie : https://github.com/sparkfun/SparkFun_MAG3110_Breakout_Board_Arduino_Library
+et encore quelques explications : https://learn.sparkfun.com/tutorials/mag3110-magnetometer-hookup-guide-
+
+
+
+
+
+
