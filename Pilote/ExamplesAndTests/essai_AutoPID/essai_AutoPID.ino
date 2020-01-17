@@ -151,5 +151,5 @@ void loop(void)
   Serial.print("Heading (degrees): "); Serial.println(headingDegrees);
   Serial.println("------------------------------------------------");
   nb += 1;
-  delay(2000);
+  delay(500);
 }

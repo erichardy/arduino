@@ -14,10 +14,15 @@ quelques indications intéressantes ici :
 http://www.bajdi.com/mag3110-magnetometer-and-arduino/
 avec l'usage d'un accéléromètre pour la calibration...
 
++++++++++++++++++++++++++++++++++++++
 un autre librairie : https://github.com/sparkfun/SparkFun_MAG3110_Breakout_Board_Arduino_Library
 et encore quelques explications : https://learn.sparkfun.com/tutorials/mag3110-magnetometer-hookup-guide-
++++++++++++++++++++++++++++++++++++++
 
 
+Plusieurs librairies possibles :
+SparkFun MAG3110
+I2C-Sensor-Lib (iLib)
 
 
 

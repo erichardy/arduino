@@ -1,0 +1,173 @@
+
+Gestion du cap avec un GPS :
+
+L'idée :
+lire successivement les coordonnées NMEA prevenant d'un GPS. Calculer successivement la Rv (Route vraie) entre 2 points et répéter
+cette opération sur plusieurs points GPS. à un intstant T, faire la moyenne de ces Rv et l'utiliser pour régler le cap.
+
+NB: certaines traces GPS peuvent donner le cap...!!!
+voir : http://www.gpspassion.com/forumsen/topic.asp?TOPIC_ID=17661
+
+la librairie https://github.com/neosarchizo/TinyGPS (TinyGPS++, A compact Arduino NMEA (GPS) parsing library) semble avoir des tas de fonctions intéressantes...
+...voir aussi les autres...
+
+https://fr.wikipedia.org/wiki/Loxodromie
+Voir le paragraphe :
+"Si les deux points A et B sont peu éloignés, on peut se contenter de la formule approchée utilisant la latitude
+moyenne"...
+formule à tester...
+
+un GPS chez E44 :
+http://www.e44.com/kits-modules/arduino/module-gps-serie-open-smart-gps-arduino-commande-vol-apm2.5-ARDUINO-17.html
+
+
+Généralités sur GPS+arduino
+https://randomnerdtutorials.com/guide-to-neo-6m-gps-module-with-arduino/
+
+explications sur les données NMEA :
+http://www.gpsinformation.org/dale/nmea.htm
+
+Plein de librairies pour lire et "parser" les données NMEA...
+
+A trouver : une méthode pour calculer le cap...
+- https://duckduckgo.com/?q=arduino+GPS+compute+heading&atb=v25__&ia=web
+- http://www.remotebits.com/index.php/2017/12/17/how-to-calculate-compass-heading-from-gps-points/
+- https://stackoverflow.com/questions/18398998/how-is-heading-calculated-by-gps
+
+exemple en ligne de calcul de cap à partir de coordonnées :
+recherche google : https://www.google.com/search?biw=1576&bih=1135&sxsrf=ACYBGNTZczo4gWwb8tAA5WvtlN-8v15tzA%3A1579215699112&ei=U-sgXszDBqKelwTWwriICw&q=GPS+calcul+du+cap+%C3%A0+partir+des+coordonn%C3%A9es+GPS&oq=GPS+calcul+du+cap+%C3%A0+partir+des+coordonn%C3%A9es+GPS&gs_l=psy-ab.3...9778.26154..27917...1.0..4.1362.10174.37j2j5j2j1j7-4......0....1..gws-wiz.......35i39j0i131j0i67j0j0i20i263j0i10j0i10i203j0i22i30j0i22i10i30j0i203j33i22i29i30j33i160.wnXsCyExJjM&ved=0ahUKEwiMuZP2nInnAhUiz4UKHVYhDrE4ChDh1QMICw&uact=5
+
+
+
+http://www.lion1906.com/Pages/francais/utile/conversion_-_cap.html
+là, il y a des formules : https://www.sunearthtools.com/fr/tools/distance.php#txtDist_3
+et là, pleibn de formules (aviation) :
+https://edwilliams.org/avform.htm
+
+
+Plein d'explications en français sur les trames NMEA :
+http://www.gpspassion.com/forumsen/topic.asp?TOPIC_ID=17661
+
+-------------------------------
+sur : https://www.sunearthtools.com/fr/tools/distance.php
+Calculation of direction between two geographical points
+To determine the direction from the starting point between two points on the earth, use the following formula:
+
+Δφ = ln( tan( latB / 2 + π / 4 ) / tan( latA / 2 + π / 4) )
+Δlon = abs( lonA - lonB )
+roulement :  θ = atan2( Δlon ,  Δφ )
+
+Note: 1) ln = natural log      2) if Δlon > 180°  then   Δlon = Δlon (mod 180).
+      3) operation a mod n     4) function atan2(y, x)      5) the angles are in radians
+---------------------------
+
+https://www.developpez.net/forums/d1039202/java/developpement-mobile-java/android/api-standards-tierces/calcul-l-angle-entre-2-points-gps/
+
+/**
+	 * @autor Jahbromo
+	 * @param latitudeOrigine
+	 * @param longitudeOrigne
+	 * @param latitudeDest
+	 * @param longitudeDest
+	 * @return angle
+	 */
+	protected float getAngle(double latitudeOrigine,double longitudeOrigne, double latitudeDest,double longitudeDest) {
+		double longDelta = longitudeDest - longitudeOrigne;
+		double y = Math.sin(longDelta) * Math.cos(latitudeDest);
+		double x = Math.cos(latitudeOrigine)*Math.sin(latitudeDest) - Math.sin(latitudeOrigine)*Math.cos(latitudeDest)*Math.cos(longDelta);
+		double angle = Math.toDegrees(Math.atan2(y, x));
+		while (angle < 0) {
+			angle += 360;
+		}
+		return (float) angle % 360;
+	}
+Donne l'angle par rapport au Nord
+
+----------------------------------------------------
+exemple en JS
+<script>
+function radians_to_degrees(radians)
+{
+  var pi = Math.PI;
+  return radians * (180/pi);
+}
+
+function degrees_to_radians(degrees)
+{
+  var pi = Math.PI;
+  return degrees * (pi/180);
+}
+
+function getCardinaux(degrees) {
+   var tmp = Math.round(degrees/ 22.5);
+   switch(tmp) {
+      case 1:
+         var direction = "NNE";
+         break;
+      case 2:
+         var direction = "NE";
+         break;
+      case 3:
+         var direction = "ENE";
+         break;
+      case 4:
+         var direction = "E";
+         break;
+      case 5:
+         var direction = "ESE";
+         break;
+      case 6:
+         var direction = "SE";
+         break;
+      case 7:
+         var direction = "SSE";
+         break;
+      case 8:
+         var direction = "S";
+         break;
+      case 9:
+         var direction = "SSW";
+         break;
+      case 10:
+         var direction = "SW";
+         break;
+      case 11:
+         var direction = "WSW";
+         break;
+      case 12:
+         var direction = "W";
+         break;
+      case 13:
+         var direction = "WNW";
+         break;
+      case 14:
+         var direction = "NW";
+         break;
+      case 15:
+         var direction = "NNW";
+         break;
+      default:
+         var direction = "N";
+   }
+   return direction;
+}
+
+var lat_depart = 48.864716;
+var lng_depart = 2.349014;
+var lat_arrivee = 43.296398;
+var lng_arrivee = 5.370000;			
+var degres = (radians_to_degrees(Math.atan2(Math.sin(degrees_to_radians(lng_arrivee) - degrees_to_radians(lng_depart)) * Math.cos(degrees_to_radians(lat_arrivee)), Math.cos(degrees_to_radians(lat_depart)) * Math.sin(degrees_to_radians(lat_arrivee)) - Math.sin(degrees_to_radians(lat_depart)) * Math.cos(degrees_to_radians(lat_arrivee)) * Math.cos(degrees_to_radians(lng_arrivee) - degrees_to_radians(lng_depart)))) + 360) % 360;		
+var degres = Math.ceil(degres * 100) / 100;
+
+alert("Cap " + degres + " " + getCardinaux(degres));
+</script>
+
+et en PHP :
+$latuser et $lnguser sont la latitude et la longitude du point de départ.
+$spot_lat et $spot_lng sont la latitude et la longitude du point d'arrivée.
+Voici la formule pour calculer l'azimut en degrés avec PHP :
+$degres = (rad2deg(atan2(sin(deg2rad($spot_lng) - 
+          deg2rad($lnguser)) * cos(deg2rad($spot_lat)), cos(deg2rad($latuser)) * sin(deg2rad($spot_lat)) - 
+          sin(deg2rad($latuser)) * cos(deg2rad($spot_lat)) * cos(deg2rad($spot_lng) - deg2rad($lnguser)))) + 360) % 360;
+
+
