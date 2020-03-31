@@ -1,18 +1,10 @@
 
 #include <Servo.h>
-// #include "IRremote.h"
 
 #define ALL 255
 #define NO_ONE 0
 
-// int receiver = 3; // Signal Pin of IR receiver to Arduino Digital Pin 11
-// IRrecv irrecv(receiver);     // create instance of 'irrecv'
-// decode_results results;      // create instance of 'decode_results'
-
 int button_delay = 300;
-// int IRresult;
-int val;
-int IRaiguil;
 
 class railSwitch: public Servo {
   public:
@@ -48,18 +40,7 @@ class railSwitch: public Servo {
       }
     }
 };
-/*
-int translateIR(int val){
-  switch(val) {
-    case 0xFF30CF: IRresult = 1 ; break;
-    case 0xFF18E7: IRresult = 2;    break;
-    case 0xFF7A85: IRresult = 3;    break;
-    case 0xFF10EF: IRresult = 4;    break;
-    case 0xFF38C7: IRresult = 5;    break;
-  }
-  return IRresult ;
-}
-*/
+
 /* Nombre d'aiguillages */
 const char NBSWITCH = 5;
 
@@ -85,9 +66,7 @@ unsigned char i;
  */
 void setup() {
   delay(3000);
-  /* desactive car ça fout le bazar !
-  irrecv.enableIRIn(); // Start the receiver
-  */
+
   Serial.begin(9600);
   for (i = 0; i < NBSWITCH; i++){
     Serial.print("Aiguillage : ");
@@ -141,19 +120,6 @@ void loop() {
     aiguils[i].change_state();
     delay(button_delay);
   }
-  /*
-  if (irrecv.decode(&results)) {
-    val = results.value;
-    IRaiguil = 0;
-    Serial.println("IR...");
-    IRaiguil = translateIR(val) -1 ;
-    aiguils[IRaiguil].change_state();
-    Serial.print("IRaiguil / IR : ");
-    Serial.println(IRaiguil);
-    delay(600);
-    irrecv.resume();
-  }
-  */
   i++;
   delay(20);
   
