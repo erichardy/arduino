@@ -32,11 +32,11 @@ for i in range(96):
     morse.append("")
 
 for c in char2morse.keys():
-    print("%i %s" % (ord(c), c))
+    # print("%i %s" % (ord(c), c))
     morse[ord(c)] = char2morse[c]
 
-print(morse)
-print(len(morse))
+# print(morse)
+# print(len(morse))
 
 print('char* MorseAlphabet[] = {')
 for i in range(33, 96):
