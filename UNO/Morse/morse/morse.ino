@@ -5,12 +5,12 @@
 #include <SparkFunT5403.h>
 T5403 barometer(MODE_I2C);
 */
-float tc;                        // T°C du capteur
+float tc = 12.54;                        // T°C du capteur
 double pa;                        // Pression atmosphérique absolue 
 
 
 int MorseVitesse = 15;                                            // Vitesse Mot Minute 
-int MorseToneFreq = 900;                                        // Frequence Tonalité
+int MorseToneFreq = 7;                                        // Frequence Tonalité
 
 int pinPTT = 4;                             // Pin 4 passe au niveau haut en Tx
 int MorseLEDPin = 13;                       // Pin 13 passe au niveau haut pour les traits et points
@@ -66,10 +66,13 @@ void TransmitMorse(String msg){
     letter = (int) msg[istr] - 33;
     if (letter < 0) {
       // espace qui separe deux mots
+      Serial.println("////");
       delay(CWword);
     } else {
       // Serial.println(letter);
       MorseLetter = MorseAlphabet[letter];
+      Serial.print(msg[istr]);
+      Serial.print(':');
       Serial.print(MorseLetter);
       Serial.print(" : ");
       TransmitLetter(MorseLetter);
@@ -95,15 +98,17 @@ void loop() {
     tc = barometer.getTemperature(CELSIUS);
     pa  = barometer.getPressure(MODE_ULTRA);
     */
-    tc = 12.54;
+    tc += 0.3;
     pa = 1032;
-    /*
-    message = "FX3UHX  FX3UHX  FX3UHX  IN78RK  IN78RK  IN78RK BT PAR  1 W 1 W 1W QNH pa QNH pa QNH pa TEMP tc TEMP tc TEMP tc ";
-    */
+    /* */
+    message = "FX3UHX  FX3UHX  FX3UHX  IN78RK  IN78RK  IN78RK BT PAR ";
+    // 1 W 1 W 1W QNH PA QNH PA QNH PA TEMP TC TEMP TC TEMP TC ";
+    /* */
     // !!! Ne pas mettre de lettres en minuscules dans le message !!!!
-    message = String("AB CD");
-    message = String(message + " TEMP ");
-    message += String(tc, 2);
+    // message = String("AB CD");
+    message += String(" TEMP ");
+    message += String(tc, 3);
+    message += " 1 W 1 W 1W QNH PA QNH PA QNH PA TEMP TC TEMP TC TEMP TC ";
     digitalWrite(pinPTT, HIGH);
     Serial.println(message);
     TransmitMorse(message);
